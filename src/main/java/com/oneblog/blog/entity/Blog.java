@@ -13,6 +13,17 @@ public class Blog {
 
     private String content;
 
+    public Blog(Integer id, Integer categoryid, String title, String titleintro, String content, String md, Long createdtime, Category category) {
+        this.id = id;
+        this.categoryid = categoryid;
+        this.title = title;
+        this.titleintro = titleintro;
+        this.content = content;
+        this.md = md;
+        this.createdtime = createdtime;
+        this.category = category;
+    }
+
     private String md;
 
     private Long createdtime;

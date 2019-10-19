@@ -28,16 +28,16 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/deleteTag")
-    public Msg deleteTag(@RequestParam(value = "tagId") Integer tagId){
+    public void deleteTag(@RequestParam(value = "tagId") Integer tagId){
         categoryService.deleteTag(tagId);
     }
 
     @GetMapping(value = "/getAllTags")
-    public Msg getAllTags(){
+    public void getAllTags(){
 
     }
 
     @GetMapping(value = "/getArticlesByTag")
-    public Msg getArticlesdByTag(){}
+    public void getArticlesdByTag(){}
 
 }

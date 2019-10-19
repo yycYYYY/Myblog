@@ -12,6 +12,8 @@ public class LoginService {
 
     public void newUser(){}
 
+    public void deleteUser(){}
+
     public void signUp(){}
 
     public void login(){}
