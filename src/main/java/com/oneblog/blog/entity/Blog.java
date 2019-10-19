@@ -28,6 +28,9 @@ public class Blog {
 
     private Long createdtime;
 
+    public Blog() {
+    }
+
     public Category getCategory() {
         return category;
     }
