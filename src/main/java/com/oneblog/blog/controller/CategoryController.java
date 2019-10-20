@@ -1,5 +1,7 @@
 package com.oneblog.blog.controller;
 
+import com.oneblog.blog.entity.Blog;
+import com.oneblog.blog.entity.Category;
 import com.oneblog.blog.service.CategoryService;
 import com.oneblog.blog.tools.Msg;
 import org.slf4j.Logger;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class CategoryController {
@@ -34,10 +38,12 @@ public class CategoryController {
 
     @GetMapping(value = "/getAllTags")
     public void getAllTags(){
-
+        List<Category> tags = categoryService.getAllTags();
     }
 
     @GetMapping(value = "/getArticlesByTag")
-    public void getArticlesdByTag(){}
+    public void getArticlesdByTag(@RequestParam(value = "tagId") Integer tagId){
+        List<Blog> articles = categoryService.getTagArticles(tagId);
+    }
 
 }
