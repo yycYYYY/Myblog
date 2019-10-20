@@ -3,6 +3,8 @@ package com.oneblog.blog.service;
 import com.oneblog.blog.entity.Comment;
 import com.oneblog.blog.entity.CommentExample;
 import com.oneblog.blog.mapper.CommentMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Service
 public class CommentService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CommentService.class);
 
     @Autowired
     CommentMapper commentMapper;
@@ -36,6 +40,7 @@ public class CommentService {
         comment.setContent(content);
         comment.setCreatedtime(time);
         commentMapper.insert(comment);
+        logger.info("{}在{}文章上增加留言"+username+blogId);
     }
 
     /**
@@ -44,6 +49,7 @@ public class CommentService {
      */
     public void deleteComment(Integer commentId){
         commentMapper.deleteByPrimaryKey(commentId);
+        logger.info("删除留言{}"+commentId);
     }
 
 

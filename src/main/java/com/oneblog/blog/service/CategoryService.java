@@ -50,6 +50,19 @@ public class CategoryService {
     }
 
     /**
+     * 修改tag信息
+     * @param tagId
+     * @param name
+     * @param level
+     */
+    public void updateTag(Integer tagId,String name,Integer level){
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andIdEqualTo(tagId);
+        categoryMapper.updateByExample(new Category(tagId,name,level) ,example);
+        logger.info("{}号tag被修改"+tagId);
+    }
+
+    /**
      * 获取所有tag
      * @return
      */
@@ -68,18 +81,5 @@ public class CategoryService {
         BlogExample example = new BlogExample();
         example.createCriteria().andCategoryidEqualTo(tagId);
         return blogMapper.selectByExample(example);
-    }
-
-    /**
-     * 修改tag信息
-     * @param tagId
-     * @param name
-     * @param level
-     */
-    public void updateTag(Integer tagId,String name,Integer level){
-        CategoryExample example = new CategoryExample();
-        example.createCriteria().andIdEqualTo(tagId);
-        categoryMapper.updateByExample(new Category(tagId,name,level) ,example);
-        logger.info("{}号tag被修改"+tagId);
     }
 }
