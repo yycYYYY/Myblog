@@ -21,7 +21,7 @@ public class ArticleService {
     private BlogMapper blogMapper;
 
     /**
-     *
+     * 新建文章
      */
     public void newArticle(Integer categoryId,String title,String titleintro,
                            String content,String md){
@@ -38,7 +38,7 @@ public class ArticleService {
     }
 
     /**
-     *
+     * 删除文章
      * @param blogId
      */
     public void deleteArticle(Integer blogId){
@@ -66,7 +66,7 @@ public class ArticleService {
 
     }
     /**
-     *
+     * 获取所有文章不带分类信息
      * @return
      */
     public List<Blog> getAllArticles(){
@@ -74,11 +74,34 @@ public class ArticleService {
     }
 
     /**
-     *
+     * 根据id获取文章不带分类信息
      * @param blogId
      * @return
      */
     public Blog getArticleById(Integer blogId){
         return blogMapper.selectByPrimaryKey(blogId);
     }
+
+
+    /**
+     * 获取所有的文章带分类信息
+     * @return
+     */
+    public List<Blog> getAll() {
+        return blogMapper.selectByExampleWithCategory(null);
+    }
+
+    /**
+     * 通过主键获取博客文章带分类信息
+     *
+     */
+    public Blog selectByPrimaryKeyWithCategory(Integer id) {
+        return blogMapper.selectByPrimaryKeyWithCategory(id);
+    }
+
+    public String getMdByArticleId(Integer id){
+        Blog blog = blogMapper.selectByPrimaryKey(id);
+        return blog.getMd().isEmpty()?"":blog.getMd();
+    }
+
 }

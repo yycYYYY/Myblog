@@ -82,4 +82,18 @@ public class CategoryService {
         example.createCriteria().andCategoryidEqualTo(tagId);
         return blogMapper.selectByExample(example);
     }
+
+    /**
+     * 根据tagname获取tagId
+     * @param tagname
+     * @return
+     */
+    public Integer getIdByTagname(String tagname){
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andNameEqualTo(tagname);
+        int tagId = categoryMapper.selectByExample(example).get(0).getId();
+        logger.info("{}tag的id为{}",tagname,tagId);
+        return tagId;
+
+    }
 }
