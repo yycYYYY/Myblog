@@ -2,6 +2,7 @@ package com.oneblog.blog;
 
 import com.oneblog.blog.entity.Blog;
 import com.oneblog.blog.mapper.BlogMapper;
+import com.oneblog.blog.service.ArticleService;
 import com.oneblog.blog.tools.TimeStampTranslate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,23 +22,40 @@ public class BlogApplicationTests {
     @Autowired
     TimeStampTranslate timeStampTranslate;
 
-    @Test
-    public void timeTest(){
-        long timeStamp=System.currentTimeMillis();
-        System.out.println(timeStamp);
-        System.out.println(timeStampTranslate.timeStamp2Time(timeStamp));
-    }
-
     @Autowired
     BlogMapper blogMapper;
 
     @Autowired
     DataSource dataSource;
 
+    @Autowired
+    ArticleService articleService;
 
     @Test
     public void contextLoads(){
     }
+
+    @Test
+    public void articleServiceTest(){
+
+        for (Blog blog : articleService.getAllArticles()){
+            System.out.println(blog.getTitle());
+        }
+
+        System.out.println(articleService.getArticleById(1).getTitle());
+
+        articleService.newArticle(1,"demo2","","aaa","aaa");
+
+        articleService.deleteArticle(3);
+    }
+
+    @Test
+    public void timeTest(){
+        long timeStamp=System.currentTimeMillis();
+        System.out.println(timeStamp);
+        System.out.println(TimeStampTranslate.timeStamp2Time(timeStamp));
+    }
+
 
     @Test
     public void datasourceTest() throws SQLException {

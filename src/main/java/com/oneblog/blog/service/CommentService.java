@@ -40,7 +40,7 @@ public class CommentService {
         comment.setContent(content);
         comment.setCreatedtime(time);
         commentMapper.insert(comment);
-        logger.info("{}在{}文章上增加留言"+username+blogId);
+        logger.info("{}在{}文章上增加留言",username,blogId);
     }
 
     /**
@@ -49,7 +49,7 @@ public class CommentService {
      */
     public void deleteComment(Integer commentId){
         commentMapper.deleteByPrimaryKey(commentId);
-        logger.info("删除留言{}"+commentId);
+        logger.info("删除留言{}",commentId);
     }
 
 

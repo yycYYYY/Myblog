@@ -25,9 +25,9 @@ public class LoginService {
         if (usersMapper.selectByExample(example).isEmpty()){
             Users user = new Users(username,password);
             usersMapper.insert(user);
-            logger.info("新建账号{}"+username);
+            logger.info("新建账号{}",username);
         }else {
-            logger.info("该账号已存在{}"+username);
+            logger.info("该账号已存在{}",username);
         }
 
     }
@@ -39,14 +39,14 @@ public class LoginService {
         example.createCriteria().andUsernameEqualTo(username);
         List<Users> users = usersMapper.selectByExample(example);
         if (users.isEmpty()){
-            logger.info("此user账号不存在{}"+username);
+            logger.info("此user账号不存在{}",username);
             //return Msg.fail.setContent("词username不存在");
         }
         if (users.get(0).getPassword()==password){
-            logger.info("{}账号密码校验成功"+username);
+            logger.info("{}账号密码校验成功",username);
 
         }else {
-            logger.info("{}账号密码校验成功"+username);
+            logger.info("{}账号密码校验成功",username);
 
         }
 

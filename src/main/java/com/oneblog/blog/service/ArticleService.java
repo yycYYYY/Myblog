@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.oneblog.blog.tools.TimeStampTranslate.timeStamp2Time;
+
 @Service
 public class ArticleService {
 
@@ -32,7 +34,7 @@ public class ArticleService {
         Long timeStamp = System.currentTimeMillis();
         blog.setCreatedtime(timeStamp);
         blogMapper.insert(blog);
-        logger.info("新建文章，主题为{}，创建时间为{}"+title+timeStamp);
+        logger.info("新建文章，主题为{}，创建时间为{}",title,timeStamp2Time(timeStamp));
     }
 
     /**
@@ -41,7 +43,7 @@ public class ArticleService {
      */
     public void deleteArticle(Integer blogId){
         blogMapper.deleteByPrimaryKey(blogId);
-        logger.info("{}号文章被删除"+blogId);
+        logger.info("{}号文章被删除",blogId);
     }
 
     /**
@@ -60,7 +62,7 @@ public class ArticleService {
         Blog blog = new Blog(blogId,categoryId,title,titleintro,content,
                 md,null,null);
         blogMapper.updateByExample(blog,example);
-        logger.info("第{}文章被修改"+blogId);
+        logger.info("第{}文章被修改",blogId);
 
     }
     /**

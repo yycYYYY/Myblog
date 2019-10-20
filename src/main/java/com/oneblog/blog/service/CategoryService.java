@@ -59,7 +59,7 @@ public class CategoryService {
         CategoryExample example = new CategoryExample();
         example.createCriteria().andIdEqualTo(tagId);
         categoryMapper.updateByExample(new Category(tagId,name,level) ,example);
-        logger.info("{}号tag被修改"+tagId);
+        logger.info("{}号tag被修改",tagId);
     }
 
     /**
