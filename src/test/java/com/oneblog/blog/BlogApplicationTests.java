@@ -1,8 +1,10 @@
 package com.oneblog.blog;
 
 import com.oneblog.blog.entity.Blog;
+import com.oneblog.blog.entity.Category;
 import com.oneblog.blog.mapper.BlogMapper;
 import com.oneblog.blog.service.ArticleService;
+import com.oneblog.blog.service.CategoryService;
 import com.oneblog.blog.tools.TimeStampTranslate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +33,9 @@ public class BlogApplicationTests {
     @Autowired
     ArticleService articleService;
 
+    @Autowired
+    CategoryService categoryService;
+
     @Test
     public void contextLoads(){
     }
@@ -50,12 +55,24 @@ public class BlogApplicationTests {
     }
 
     @Test
+    public void categoryServiceTest(){
+        categoryService.newTag(2,1,"demo2");
+
+        for (Category category:categoryService.getAllTags()){
+            System.out.println(category.getName());
+        }
+
+        categoryService.updateTag(2,"demodemo",1);
+
+        System.out.println(categoryService.getIdByTagname("demoTag"));
+    }
+
+    @Test
     public void timeTest(){
         long timeStamp=System.currentTimeMillis();
         System.out.println(timeStamp);
         System.out.println(TimeStampTranslate.timeStamp2Time(timeStamp));
     }
-
 
     @Test
     public void datasourceTest() throws SQLException {
