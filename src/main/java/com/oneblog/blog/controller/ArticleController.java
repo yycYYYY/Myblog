@@ -108,7 +108,7 @@ public class ArticleController {
         return view;
     }
 
-    @GetMapping(value = "/articles")
+    @GetMapping(value = "/artag?id=1ticles")
     public BaseResponseVO getAllArticles(@RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber){
         //分页
         PageHelper.startPage(pageNumber,5);
