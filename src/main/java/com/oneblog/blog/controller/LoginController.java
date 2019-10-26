@@ -54,6 +54,16 @@ public class LoginController {
         }
     }
 
+    @GetMapping(value = "/isLogin")
+    public String isLogin(HttpServletRequest request,HttpServletResponse response){
+
+        if (request.getSession().getAttribute("username") == null) {
+            logger.info("用户未登陆");
+            return "admin/error";
+        }
+        return "redirect:/newArticle";
+    }
+
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
         request.getSession().removeAttribute("username");
