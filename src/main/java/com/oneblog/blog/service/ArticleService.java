@@ -70,6 +70,11 @@ public class ArticleService {
         logger.info("第{}文章被修改",blogId);
 
     }
+
+    public void updateArticle(Blog blog){
+        blogMapper.updateByPrimaryKey(blog);
+        logger.info("{}文章被修改",blog.getTitle());
+    }
     /**
      * 获取所有文章不带分类信息
      * @return

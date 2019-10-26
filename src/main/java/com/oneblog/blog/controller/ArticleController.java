@@ -35,8 +35,8 @@ public class ArticleController {
     @PostMapping(value = "/newArticle",produces="application/json")
     public ModelAndView newArticle(HttpServletRequest request,
                                    HttpServletResponse response,
-                                   @RequestParam(value = "editormd-markdown") String md,
-                                   @RequestParam(value = "editorhtml") String content){
+                                   @RequestParam(value = "editormd-markdown",required = false) String md,
+                                   @RequestParam(value = "editorhtml",required = false) String content){
         Map<String, Object> map = new HashMap<String, Object>();
         ModelAndView view = new ModelAndView();
 
@@ -77,8 +77,36 @@ public class ArticleController {
         }
     }
 
-    @PostMapping(value = "/updateArticle    ")
-    public void updateArticle(){}
+    @PostMapping(value = "/updateArticle")
+    public ModelAndView updateArticle(HttpServletRequest request,
+                              HttpServletResponse response,
+                              @RequestParam(value = "editormd-markdown",required = false) String md,
+                              @RequestParam(value = "editorhtml",required = false) String content){
+        ModelAndView view = new ModelAndView();
+        String dateStr;
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        // 获取隐藏域文章的 id
+        int id = Integer.parseInt(request.getParameter("id"));
+        // 获取文章对应的 分类Id
+        Integer categoryId = categoryService.getIdByTagname(request
+                .getParameter("categoryName"));
+
+        Blog blog = new Blog();
+        blog.setId(id);
+        blog.setCategoryid(categoryId);
+        blog.setContent(content);
+        blog.setMd(md);
+        blog.setTitle(request.getParameter("title"));
+        blog.setTitleintro(request.getParameter("titleIntro"));
+        blog.setCreatedtime(System.currentTimeMillis());
+        articleService.updateArticle(blog);
+        // 获得文章的标题，标题介绍，日期，分类等信息
+        map.put("message", "修改文章成功！");
+        view.setViewName("admin/editsuccess");
+        view.addObject("map", map);
+        return view;
+    }
 
     @GetMapping(value = "/articles")
     public BaseResponseVO getAllArticles(@RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber){
