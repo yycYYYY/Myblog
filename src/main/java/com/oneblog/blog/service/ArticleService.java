@@ -37,6 +37,11 @@ public class ArticleService {
         logger.info("新建文章，主题为{}，创建时间为{}",title,timeStamp2Time(timeStamp));
     }
 
+    public void newArticle(Blog blog){
+        blogMapper.insert(blog);
+        logger.info("新建文章，主题为{}，创建时间为{}",blog.getTitle(),timeStamp2Time(blog.getCreatedtime()));
+    }
+
     /**
      * 删除文章
      * @param blogId

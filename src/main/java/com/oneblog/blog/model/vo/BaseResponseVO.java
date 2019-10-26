@@ -6,22 +6,22 @@ import static com.oneblog.blog.model.enums.BaseResponseEnums.ERROR;
 import static com.oneblog.blog.model.enums.BaseResponseEnums.FAIL;
 import static com.oneblog.blog.model.enums.BaseResponseEnums.SUCCESS;
 
-public class BaseResponseVO implements Serializable {
+public class BaseResponseVO{
 
     private int code;
     private String message;
     private Object content;
 
-    BaseResponseVO success(){
-        return new BaseResponseVO(SUCCESS.getCode(),SUCCESS.getMessage(),null);
+    public static BaseResponseVO success(Object content){
+        return new BaseResponseVO(SUCCESS.getCode(),SUCCESS.getMessage(),content);
     }
 
-    BaseResponseVO fail(){
-        return new BaseResponseVO(FAIL.getCode(),FAIL.getMessage(),null);
+    public static BaseResponseVO fail(Object content){
+        return new BaseResponseVO(FAIL.getCode(),FAIL.getMessage(),content);
     }
 
-    BaseResponseVO error(){
-        return new BaseResponseVO(ERROR.getCode(),ERROR.getMessage(),null);
+    public static BaseResponseVO error(Object content){
+        return new BaseResponseVO(ERROR.getCode(),ERROR.getMessage(),content);
     }
 
     BaseResponseVO(int code, String message, Object content) {
