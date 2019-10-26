@@ -8,9 +8,6 @@ public enum BaseResponseEnums {
     int code;
     String message;
 
-    BaseResponseEnums() {
-    }
-
     BaseResponseEnums(int code, String message) {
 
         this.code = code;
