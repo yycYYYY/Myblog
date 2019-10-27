@@ -32,6 +32,9 @@ public class ArticleController {
     @Autowired
     CategoryService categoryService;
 
+    /**
+     *新建文章
+     */
     @PostMapping(value = "/newArticle",produces="application/json")
     public ModelAndView newArticle(HttpServletRequest request,
                                    HttpServletResponse response,
@@ -63,6 +66,10 @@ public class ArticleController {
         return view;
     }
 
+    /**
+     *
+     * 根据文章id删除文章
+     */
     @GetMapping(value = "/deleteArticleByid")
     public BaseResponseVO deleteArticleById(HttpServletRequest request,
                                   HttpServletResponse response,
@@ -77,6 +84,9 @@ public class ArticleController {
         }
     }
 
+    /**
+     * 更新文章
+     */
     @PostMapping(value = "/updateArticle")
     public ModelAndView updateArticle(HttpServletRequest request,
                               HttpServletResponse response,
@@ -108,7 +118,12 @@ public class ArticleController {
         return view;
     }
 
-    @GetMapping(value = "/artag?id=1ticles")
+    /**
+     * 分页，并返回文章列表
+     * @param pageNumber 页数
+     * @return
+     */
+    @GetMapping(value = "/articles")
     public BaseResponseVO getAllArticles(@RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber){
         //分页
         PageHelper.startPage(pageNumber,5);

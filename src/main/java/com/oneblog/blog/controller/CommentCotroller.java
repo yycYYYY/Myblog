@@ -1,6 +1,7 @@
 package com.oneblog.blog.controller;
 
 import com.oneblog.blog.entity.Comment;
+import com.oneblog.blog.model.vo.BaseResponseVO;
 import com.oneblog.blog.service.CommentService;
 import com.oneblog.blog.tools.Msg;
 import org.slf4j.Logger;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CommentCotroller {
@@ -25,28 +28,31 @@ public class CommentCotroller {
     private CommentService commentService;
 
     @PostMapping("/sendComment")
-    public Msg sendComment(@RequestParam(value = "blogId") Integer blogId,
+    public BaseResponseVO sendComment(@RequestParam(value = "blogId") Integer blogId,
                            @RequestParam(value = "username") String username,
                            @RequestParam(value = "content")String content){
         commentService.addComment(blogId,username,content);
-        Msg msg=Msg.success();
-        return msg;
+        return BaseResponseVO.success(null);
     }
 
     @GetMapping("/deleteComment")
-    public Msg deleteComment(@RequestParam(value = "commentId")Integer commentId){
+    public BaseResponseVO deleteComment(@RequestParam(value = "commentId")Integer commentId){
         commentService.deleteComment(commentId);
-        Msg msg = Msg.success();
-        return msg;
+        return BaseResponseVO.success(null);
     }
 
+    /**
+     *
+     * @param blogId 文章id
+     * @return 单个博客评论
+     */
     @GetMapping("/getComment")
-    public Msg getCommentById(@RequestParam(value = "blogId")Integer blogId){
+    public BaseResponseVO getCommentById(@RequestParam(value = "blogId")Integer blogId){
 
-        Msg msg = Msg.success();
-        msg.add("comments",commentService.getCommentByBlog(blogId));
+        Map<String,Object> map = new HashMap<>();
+        map.put("comments",commentService.getCommentByBlog(blogId));
         logger.info("获取单个博客评论");
-        return msg;
+        return BaseResponseVO.success(map);
     }
 
     /**
@@ -55,18 +61,18 @@ public class CommentCotroller {
      */
     @ResponseBody
     @GetMapping("/getAllComments")
-    public Msg getAllComment(){
+    public BaseResponseVO getAllComment(){
         List<Comment> comments = commentService.getAllComment();
-        Msg msg = Msg.success();
+        Map<String,Object> map = new HashMap<>();
         if (!comments.isEmpty()){
-            logger.info("获取所有评论成功/n");
-            msg.add("comments",comments);
+            logger.info("获取所有评论成功");
+            map.put("comments",comments);
         }else {
 
-            msg.add("comments","评论为空");
+            map.put("comments","评论为空");
             logger.info("评论为空");
         }
-        return msg;
+        return BaseResponseVO.success(map);
     }
 
     /**
