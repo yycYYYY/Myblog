@@ -73,17 +73,6 @@ public class CategoryService {
     }
 
     /**
-     * 获取某tag所有文章
-     * @param tagId
-     * @return
-     */
-    public List<Blog> getTagArticles(Integer tagId){
-        BlogExample example = new BlogExample();
-        example.createCriteria().andCategoryidEqualTo(tagId);
-        return blogMapper.selectByExample(example);
-    }
-
-    /**
      * 根据tagname获取tagId
      * @param tagname
      * @return

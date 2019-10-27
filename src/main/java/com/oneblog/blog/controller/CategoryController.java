@@ -27,32 +27,24 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping(value = "/newTag")
-    public Msg newTag(@RequestParam(value = "tagId")Integer tagId,
+    public BaseResponseVO newTag(@RequestParam(value = "tagId")Integer tagId,
                       @RequestParam(value = "level") Integer level,
                       @RequestParam(value = "name") String name){
             categoryService.newTag(tagId, level, name);
-            Msg msg=Msg.success();
-            return msg;
+            return BaseResponseVO.success(null);
     }
 
     @GetMapping(value = "/deleteTag")
-    public void deleteTag(@RequestParam(value = "tagId") Integer tagId){
+    public BaseResponseVO deleteTag(@RequestParam(value = "tagId") Integer tagId){
         categoryService.deleteTag(tagId);
+        return BaseResponseVO.success(null);
     }
 
+    //老项目中的getCategoryName就是这个
     @GetMapping(value = "/getAllTags")
     @ResponseBody
     public BaseResponseVO getAllTags(){
         List<Category> tags = categoryService.getAllTags();
         return BaseResponseVO.success(tags);
     }
-
-    @GetMapping(value = "/getArticlesByTag")
-    public BaseResponseVO getArticlesdByTag(@RequestParam(value = "tagId") Integer tagId){
-        List<Blog> articles = categoryService.getTagArticles(tagId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("articles", articles);
-        return BaseResponseVO.success(map);
-    }
-
 }

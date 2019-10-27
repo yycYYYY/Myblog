@@ -8,15 +8,15 @@ import com.oneblog.blog.service.ArticleService;
 import com.oneblog.blog.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,21 +26,20 @@ public class ArticleController {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
-    @Autowired
-    ArticleService articleService;
+    @Resource
+    private ArticleService articleService;
 
-    @Autowired
-    CategoryService categoryService;
+    @Resource
+    private CategoryService categoryService;
 
     /**
      *新建文章
      */
     @PostMapping(value = "/newArticle",produces="application/json")
     public ModelAndView newArticle(HttpServletRequest request,
-                                   HttpServletResponse response,
                                    @RequestParam(value = "editormd-markdown",required = false) String md,
                                    @RequestParam(value = "editorhtml",required = false) String content){
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         ModelAndView view = new ModelAndView();
 
         Blog blog = new Blog();
@@ -72,7 +71,6 @@ public class ArticleController {
      */
     @GetMapping(value = "/deleteArticleByid")
     public BaseResponseVO deleteArticleById(HttpServletRequest request,
-                                  HttpServletResponse response,
                                   @RequestParam(value = "blogId") Integer blogId){
         if (request.getSession().getAttribute("username")!=null){
             articleService.deleteArticle(blogId);
@@ -89,12 +87,10 @@ public class ArticleController {
      */
     @PostMapping(value = "/updateArticle")
     public ModelAndView updateArticle(HttpServletRequest request,
-                              HttpServletResponse response,
                               @RequestParam(value = "editormd-markdown",required = false) String md,
                               @RequestParam(value = "editorhtml",required = false) String content){
         ModelAndView view = new ModelAndView();
-        String dateStr;
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         // 获取隐藏域文章的 id
         int id = Integer.parseInt(request.getParameter("id"));
@@ -121,9 +117,9 @@ public class ArticleController {
     /**
      * 分页，并返回文章列表
      * @param pageNumber 页数
-     * @return
+     * @return 文章列表的vo
      */
-    @GetMapping(value = "/articles")
+    @GetMapping(value = "/getArticles")
     public BaseResponseVO getAllArticles(@RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber){
         //分页
         PageHelper.startPage(pageNumber,5);
@@ -132,6 +128,22 @@ public class ArticleController {
         return BaseResponseVO.success(pageInfo);
     }
 
-    @GetMapping(value = "/articlesByTag")
-    public void getArticlesByTag(){}
+
+    //是否可以和老项目中的/showArticle公用
+    @GetMapping(value = "/articleById")
+    public BaseResponseVO getArticleById(@RequestParam(value = "blogId",defaultValue = "1") Integer blogId){
+        return BaseResponseVO.success(articleService.getArticleById(blogId));
+    }
+
+    //获取某分类下所有文章，老项目在Category的controller中
+    @GetMapping(value = "/getArticlesByTag")
+    public BaseResponseVO getArticlesdByTag(@RequestParam(value = "tagId") Integer tagId){
+        List<Blog> articles = articleService.getArticlesByTag(tagId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("articles", articles);
+        return BaseResponseVO.success(map);
+    }
+
+
+
 }

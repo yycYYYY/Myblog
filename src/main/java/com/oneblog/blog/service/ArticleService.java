@@ -44,7 +44,7 @@ public class ArticleService {
 
     /**
      * 删除文章
-     * @param blogId
+     * @param blogId 文章id
      */
     public void deleteArticle(Integer blogId){
         blogMapper.deleteByPrimaryKey(blogId);
@@ -53,12 +53,6 @@ public class ArticleService {
 
     /**
      *
-     * @param blogId
-     * @param categoryId
-     * @param title
-     * @param titleintro
-     * @param content
-     * @param md
      */
     public void updateArticle(Integer blogId,Integer categoryId, String title,String titleintro,
                               String content,String md){
@@ -109,6 +103,11 @@ public class ArticleService {
         return blogMapper.selectByPrimaryKeyWithCategory(id);
     }
 
+    public List<Blog> getArticlesByTag(Integer tagId){
+        BlogExample example = new BlogExample();
+        example.createCriteria().andCategoryidEqualTo(tagId);
+        return blogMapper.selectByExample(example);
+    }
     public String getMdByArticleId(Integer id){
         Blog blog = blogMapper.selectByPrimaryKey(id);
         return blog.getMd().isEmpty()?"":blog.getMd();
