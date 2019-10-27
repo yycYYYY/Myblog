@@ -3,18 +3,16 @@ package com.oneblog.blog.controller;
 import com.oneblog.blog.entity.Comment;
 import com.oneblog.blog.model.vo.BaseResponseVO;
 import com.oneblog.blog.service.CommentService;
-import com.oneblog.blog.tools.Msg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,7 @@ public class CommentCotroller {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentCotroller.class);
 
-    @Autowired
+    @Resource
     private CommentService commentService;
 
     @PostMapping("/sendComment")
@@ -78,12 +76,10 @@ public class CommentCotroller {
     /**
      *
      * @param request 请求
-     * @param response 响应
      * @return 地址
      */
     @GetMapping(value = "/commentManage")
-    public String commentManage(HttpServletRequest request,
-                             HttpServletResponse response){
+    public String commentManage(HttpServletRequest request){
     if (request.getSession().getAttribute("username").equals("")
             ||request.getSession().getAttribute("username")==null){
         logger.info("未登录，无法进入评论管理页面/n");
