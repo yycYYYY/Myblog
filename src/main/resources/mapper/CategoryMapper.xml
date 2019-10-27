@@ -101,9 +101,9 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into category (id, name, level
+    insert into category (name, level
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}
+    values (#{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.oneblog.blog.entity.Category">

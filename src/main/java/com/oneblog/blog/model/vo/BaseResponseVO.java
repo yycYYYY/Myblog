@@ -6,7 +6,7 @@ import static com.oneblog.blog.model.enums.BaseResponseEnums.ERROR;
 import static com.oneblog.blog.model.enums.BaseResponseEnums.FAIL;
 import static com.oneblog.blog.model.enums.BaseResponseEnums.SUCCESS;
 
-public class BaseResponseVO{
+public class BaseResponseVO implements Serializable {
 
     private int code;
     private String message;
@@ -53,5 +53,14 @@ public class BaseResponseVO{
 
     public void setContent(Object content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseResponseVO{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", content=" + content +
+                '}';
     }
 }

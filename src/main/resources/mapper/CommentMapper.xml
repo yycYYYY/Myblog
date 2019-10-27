@@ -103,9 +103,9 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into comment (id, blog_id, username, 
+    insert into comment (blog_id, username,
       content, createdtime)
-    values (#{id,jdbcType=INTEGER}, #{blogId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+    values (#{blogId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
       #{content,jdbcType=VARCHAR}, #{createdtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.oneblog.blog.entity.Comment">

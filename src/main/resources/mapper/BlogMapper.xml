@@ -17,6 +17,7 @@
       <id column="id" property="id"/>
       <result column="name" property="name"/>
       <result column="level" property="level"/>
+      <result column="level" property="level"/>
     </association>
   </resultMap>
 
@@ -120,10 +121,10 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into blog (id, categoryId, title, 
+    insert into blog (categoryId, title,
       titleIntro, content, md, 
       createdtime)
-    values (#{id,jdbcType=INTEGER}, #{categoryid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+    values (#{categoryid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
       #{titleintro,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{md,jdbcType=VARCHAR}, 
       #{createdtime,jdbcType=TIMESTAMP})
   </insert>

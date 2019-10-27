@@ -6,10 +6,7 @@ import com.oneblog.blog.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +14,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+//@Controller
+@RestController
 public class CommentCotroller {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentCotroller.class);
 
     @Resource
     private CommentService commentService;
+
 
     @PostMapping("/sendComment")
     public BaseResponseVO sendComment(@RequestParam(value = "blogId") Integer blogId,
@@ -74,7 +73,7 @@ public class CommentCotroller {
     }
 
     /**
-     *
+     * 这个接口需要迁移
      * @param request 请求
      * @return 地址
      */
