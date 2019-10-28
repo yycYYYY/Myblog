@@ -71,7 +71,7 @@ public class ArticleController {
      *
      * 根据文章id删除文章
      */
-    @GetMapping(value = "/deleteArticleByid")
+    @GetMapping(value = "/deleteArticle")
     public BaseResponseVO deleteArticleById(HttpServletRequest request,
                                   @RequestParam(value = "blogId") Integer blogId){
         if (request.getSession().getAttribute("username")!=null){

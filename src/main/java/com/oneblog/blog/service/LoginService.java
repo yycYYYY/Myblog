@@ -35,7 +35,16 @@ public class LoginService {
 
     }
 
-    public void deleteUser(){}
+    public void deleteUser(String username){
+        UsersExample example = new UsersExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        if (!usersMapper.selectByExample(example).isEmpty()) {
+            usersMapper.deleteByExample(example);
+            logger.info("{}用户被删除",username);
+        }else {
+            logger.info("{}用户不存在",username);
+        }
+    }
 
     public boolean login(String username,String password) throws SaslException {
         UsersExample example = new UsersExample();
@@ -58,6 +67,4 @@ public class LoginService {
 
 
     }
-
-    public void logout(){}
 }
