@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneratorSqlMap {
-    public void generator() throws Exception {
+    private void generator() throws Exception {
 
-        List<String> warnings = new ArrayList<String>();
+        List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
         //指定逆向工程配置文件
         File configFile = new File("/home/matthewot/IdeaProjects/demos/Myblog/src/main/resources/generatorConfig.xml");

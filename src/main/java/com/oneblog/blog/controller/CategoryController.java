@@ -12,8 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-//@Controller
-@RestController
+@Controller
 public class CategoryController {
 
     private static final Logger logger=LoggerFactory.getLogger(CategoryController.class);

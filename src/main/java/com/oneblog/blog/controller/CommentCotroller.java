@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@Controller
-@RestController
+@Controller
 public class CommentCotroller {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentCotroller.class);

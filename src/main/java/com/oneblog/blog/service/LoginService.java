@@ -52,7 +52,7 @@ public class LoginService {
         List<Users> users = usersMapper.selectByExample(example);
         if (users.isEmpty()){
             logger.info("此user账号不存在{}",username);
-            //return Msg.fail.setContent("词username不存在");
+
             return false;
         }
         if (users.get(0).getPassword().equals(MD5.getMD5(password))){

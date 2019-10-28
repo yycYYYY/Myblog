@@ -16,13 +16,12 @@ import java.util.Map;
 @Configuration
 public class DruidConfig {
 
-//    Logger logger=LoggerFactory.getLogger(DruidConfig.class);
+//    private static final Logger logger=LoggerFactory.getLogger(DruidConfig.class);
 
     //配置druid监控
 
     /**
      * 配置一个管理后台的servlet
-     * @return
      */
     @Bean
     public ServletRegistrationBean statViewServlet(){
@@ -42,7 +41,7 @@ public class DruidConfig {
 
     /**
      * web监控的filter
-     * @return
+     *
      */
     @Bean
     public FilterRegistrationBean webStatFilter(){
