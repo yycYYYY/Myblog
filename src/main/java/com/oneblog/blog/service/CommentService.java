@@ -5,10 +5,10 @@ import com.oneblog.blog.entity.CommentExample;
 import com.oneblog.blog.mapper.CommentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +17,8 @@ public class CommentService {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentService.class);
 
-    @Autowired
-    CommentMapper commentMapper;
+    @Resource
+    private CommentMapper commentMapper;
 
     /**
      * 增加评论

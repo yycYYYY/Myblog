@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.security.sasl.SaslException;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class LoginService {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginService.class);
 
-    @Autowired
+    @Resource
     private UsersMapper usersMapper;
 
     public void newUser(String username,String password) throws SaslException {

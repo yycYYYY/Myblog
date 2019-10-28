@@ -1,6 +1,6 @@
 package com.oneblog.blog.service;
 
-import com.oneblog.blog.entity.Blog;
+
 import com.oneblog.blog.entity.BlogExample;
 import com.oneblog.blog.entity.Category;
 import com.oneblog.blog.entity.CategoryExample;
@@ -8,9 +8,9 @@ import com.oneblog.blog.mapper.BlogMapper;
 import com.oneblog.blog.mapper.CategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -18,17 +18,14 @@ public class CategoryService {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
-    @Autowired
+    @Resource
     private BlogMapper blogMapper;
 
-    @Autowired
+    @Resource
     private CategoryMapper categoryMapper;
 
     /**
      * 新建分类
-     * @param tagId
-     * @param level
-     * @param name
      */
     public void newTag(Integer tagId,Integer level,String name){
         Category category=new Category(tagId,name,level);
@@ -38,8 +35,6 @@ public class CategoryService {
 
     /**
      * 删除tag时会删除对应的文章
-     * 删除tag
-     * @param tagId
      */
     public void deleteTag(Integer tagId){
         BlogExample example = new BlogExample();
@@ -51,9 +46,7 @@ public class CategoryService {
 
     /**
      * 修改tag信息
-     * @param tagId
-     * @param name
-     * @param level
+     *
      */
     public void updateTag(Integer tagId,String name,Integer level){
         CategoryExample example = new CategoryExample();
@@ -64,7 +57,7 @@ public class CategoryService {
 
     /**
      * 获取所有tag
-     * @return
+     *
      */
     public List<Category> getAllTags(){
         CategoryExample example = new CategoryExample();
@@ -74,8 +67,7 @@ public class CategoryService {
 
     /**
      * 根据tagname获取tagId
-     * @param tagname
-     * @return
+     *
      */
     public Integer getIdByTagname(String tagname){
         CategoryExample example = new CategoryExample();

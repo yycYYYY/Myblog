@@ -5,9 +5,9 @@ import com.oneblog.blog.entity.BlogExample;
 import com.oneblog.blog.mapper.BlogMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 import static com.oneblog.blog.tools.TimeStampTranslate.timeStamp2Time;
@@ -17,7 +17,7 @@ public class ArticleService {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
 
-    @Autowired
+    @Resource
     private BlogMapper blogMapper;
 
     /**
@@ -71,7 +71,6 @@ public class ArticleService {
     }
     /**
      * 获取所有文章不带分类信息
-     * @return
      */
     public List<Blog> getAllArticles(){
         return blogMapper.selectAll();
@@ -79,8 +78,6 @@ public class ArticleService {
 
     /**
      * 根据id获取文章不带分类信息
-     * @param blogId
-     * @return
      */
     public Blog getArticleById(Integer blogId){
         return blogMapper.selectByPrimaryKey(blogId);
@@ -89,7 +86,6 @@ public class ArticleService {
 
     /**
      * 获取所有的文章带分类信息
-     * @return
      */
     public List<Blog> getAll() {
         return blogMapper.selectByExampleWithCategory(null);
