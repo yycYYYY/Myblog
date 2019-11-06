@@ -21,6 +21,13 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       use-global-data-source-stat: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMills=500
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+    servlet:
+      path: /
+    static-path-pattern: /**
 #    spring.datasource.schema是用于执行ddl，可用于建表等功能
 #    schema:
 #      - classpath:sql/xxx.sql

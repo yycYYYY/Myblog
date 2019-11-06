@@ -1,10 +1,15 @@
 package com.oneblog.blog.controller;
 
+import com.oneblog.blog.entity.Users;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,9 +18,20 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 页面跳转的handler
  */
-@RestController
+@Controller
 public class MainController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+    @RequestMapping("/")
+    public String showInfoDemo(Model model){
+        Users user = new Users("aa","aa");
+        logger.info("demo");
+        String message = "hello themeleaf!";
+        model.addAttribute("user",user);
+        model.addAttribute("message",message);
+        return "html/index";
+    }
 
     // 后台新建博客文章,判断是否登陆，我用  ajax 请求无法跳转页面，
     // 使用了window.location='${APP_PATH }/islogin'; 请求跳转

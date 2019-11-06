@@ -1,7 +1,5 @@
 package com.oneblog.blog.entity;
 
-import java.util.Date;
-
 public class Comment {
     private Integer id;
 
