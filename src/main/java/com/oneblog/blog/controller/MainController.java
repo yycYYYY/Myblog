@@ -83,18 +83,7 @@ public class MainController {
     public String deleteNoLogin() {
         return "admin/error";
     }
-
-    @RequestMapping("/about")
-    public String about() {
-        return "about";
-    }
-
-    @RequestMapping("/contact")
-    public String contact() {
-        return "contact";
-    }
-
-
+    
     // 分类的后台管理
     @RequestMapping(value="/tagAdmin")
     public String tagadmin(HttpServletRequest request, HttpServletResponse response) {
