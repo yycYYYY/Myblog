@@ -25,12 +25,17 @@ public class MainController {
 
     @RequestMapping("/")
     public String showInfoDemo(Model model){
-        Users user = new Users("aa","aa");
-        logger.info("demo");
-        String message = "hello themeleaf!";
-        model.addAttribute("user",user);
-        model.addAttribute("message",message);
         return "html/index";
+    }
+
+    @RequestMapping("/about")
+    public String showAbout(){
+        return "html/about";
+    }
+
+    @RequestMapping("/contact")
+    public String showContact(){
+        return "html/contact";
     }
 
     // 后台新建博客文章,判断是否登陆，我用  ajax 请求无法跳转页面，

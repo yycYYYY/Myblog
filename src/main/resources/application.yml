@@ -1,6 +1,9 @@
 spring:
   thymeleaf:
     cache: false
+    mode: HTML
+    suffix: .html
+    prefix: classpath:/templates/
   datasource:
     url: jdbc:mysql://localhost:3306/jspblog?useUnicode=true&characterEncoding=utf-8
     username: root
@@ -23,11 +26,11 @@ spring:
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMills=500
   mvc:
     view:
-      prefix: /templates/
+      prefix: classpath:/templates/
       suffix: .html
     servlet:
       path: /
-    static-path-pattern: /**
+    static-path-pattern: /static/**
 #    spring.datasource.schema是用于执行ddl，可用于建表等功能
 #    schema:
 #      - classpath:sql/xxx.sql
