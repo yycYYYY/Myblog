@@ -27,7 +27,7 @@
 	<h1>编辑保存文章</h1>
 	<br>
 	<form class="form-horizontal" action="/updateArticle" method="post" style="text-align:center">
-		  <input type="hidden" name="id" value="${blogid }"/> 
+		  <input type="hidden" name="id" value="${blogid}"/>
 		  <div class="form-group">
 		    <label for="title" class="col-sm-2 control-label">title</label>
 		    <div class="col-sm-8">
@@ -78,7 +78,7 @@
          	  /**上传图片相关配置如下*/
 	         imageUpload : true,
 	         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-	         imageUploadURL : "<%=request.getContextPath()%>/uploadImg",
+	         imageUploadURL : "/uploadImg",
           	 saveHTMLToTextarea : true,	//注意3：这个配置，方便post提交表单
 			 emoji : true,
 			 taskList : true,
@@ -94,14 +94,14 @@
 			// 得到分类名
 			getCategoryName();
 			// 获取要编辑文章的内容
-			var id = ${blogid };
+			var id = ${blogid};
 			getBlogContent(id);
 		});
 		
 		function getBlogContent(id) {
 			$.ajax({
 				type: "GET",
-				url: "${APP_PATH}/getarticlebyid",
+				url: "/getArticleById",
 				data: "id="+id,
 				dataType: "json",
 				success: function(result) {
@@ -116,7 +116,7 @@
 		function getCategoryName() {
 			$.ajax({
 				type: "post",
-				url: "${APP_PATH }/getCategoryName",
+				url: "/getAllTags",
 				dataType: "json",
 				success: function(data) {
 					var categories = data.extend.category;

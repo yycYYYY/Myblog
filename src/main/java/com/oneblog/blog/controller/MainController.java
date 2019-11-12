@@ -46,7 +46,7 @@ public class MainController {
             System.out.println("username = " + request.getSession().getAttribute("username"));
             return "redirect:/newarticle";
         }
-        return "admin/error";
+        return "html/admin/error";
     }
 
 
@@ -59,10 +59,10 @@ public class MainController {
         if(request.getSession().getAttribute("username") != null) {
             String username = request.getSession().getAttribute("username").toString();
             if(username != null) {
-                return "admin/newblog";
+                return "html/admin/newblog";
             }
         }
-        return "admin/error";
+        return "html/admin/error";
     }
 
 
@@ -73,15 +73,28 @@ public class MainController {
                        HttpServletRequest request, Model model) {
         if(request.getSession().getAttribute("username")  != null) {
             model.addAttribute("blogid", id);
-            return "admin/edit";
+            return "html/admin/edit";
         }
-        return "admin/error";
+        return "html/admin/error";
     }
 
     // 没有登陆的时候，就不能删除文章
     @RequestMapping("/deleteNoLogin")
     public String deleteNoLogin() {
-        return "admin/error";
+        return "html/admin/error";
+    }
+
+    @RequestMapping(value ="/articleAdmin")
+    public String articleAdmin(HttpServletRequest request, HttpServletResponse response){
+        String username = null;
+        if(request.getSession().getAttribute("username") != null) {
+            username = request.getSession().getAttribute("username").toString();
+        }
+
+        if(username == null) {
+            return "html/admin/error";
+        }
+        return "html/admin/backAdmin";
     }
     
     // 分类的后台管理
@@ -93,9 +106,9 @@ public class MainController {
         }
 
         if(username == null) {
-            return "admin/error";
+            return "html/admin/error";
         }
-        return "admin/tagadmin";
+        return "html/admin/tagadmin";
     }
 
     // 评论后台管理
@@ -105,9 +118,9 @@ public class MainController {
         if(request.getSession().getAttribute("username") != null) {
             String username = request.getSession().getAttribute("username").toString();
             if(username != null) {
-                return "admin/commentadmin";
+                return "html/admin/commentadmin";
             }
         }
-        return "admin/error";
+        return "html/admin/error";
     }
 }

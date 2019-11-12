@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.Resource;
 import javax.security.sasl.SaslException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -26,7 +28,7 @@ public class LoginController {
      */
     @GetMapping(value = "/signIn")
     public String signIn(){
-        return "admin/signIn";
+        return "html/admin/signIn";
     }
 
     /**
@@ -34,22 +36,24 @@ public class LoginController {
      */
     @GetMapping(value = "/signUp")
     public String signUp(){
-        return "admin/signUp";
+        return "html/admin/signUp";
     }
 
 
     @PostMapping(value = "/login")
     public String login(@RequestParam(value = "username",required = false) String username,
                         @RequestParam(value = "password",required = false) String password,
-                        HttpServletRequest request) throws SaslException {
+                        HttpServletRequest request, HttpServletResponse response) throws SaslException {
         if (request.getSession().getAttribute("username")!=null){
             return "admin/backAdmin";
         }
 
         if (loginService.login(username,password)){
-            return "admin/backAdmin";
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+            return "html/admin/backAdmin";
         }else {
-            return "admin/loginFail";
+            return "html/admin/loginFail";
         }
     }
 
@@ -58,7 +62,7 @@ public class LoginController {
 
         if (request.getSession().getAttribute("username") == null) {
             logger.info("用户未登陆");
-            return "admin/error";
+            return "html/admin/error";
         }
         return "redirect:/newArticle";
     }

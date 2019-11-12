@@ -125,7 +125,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     function pages(id) {
         $.ajax({
             type: "GET",
-            url: "${APP_PATH}/articles",
+            url: "/getArticles",
             data: "pn="+id,
             dataType: "json",
             success: function(result) {
@@ -266,7 +266,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     function gettags() {
         $.ajax({
             type: "GET",
-            url: "${APP_PATH}/getTags",
+            url: "/getAllTags",
             dataType: "json",
             success: function(result) {
                 $("#tags").empty();
@@ -290,7 +290,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     function build_post() {
         $.ajax({
             type: "GET",
-            url: "${APP_PATH}/postarticle",
+            url: "/postArticle",
             dataType: "json",
             success: function(result) {
                 var list = result.extend.postList;
