@@ -31,6 +31,7 @@ spring:
     servlet:
       path: /
     static-path-pattern: /static/**
+    date-format: yyyy-MM-dd hh:mm:ss
 #    spring.datasource.schema是用于执行ddl，可用于建表等功能
 #    schema:
 #      - classpath:sql/xxx.sql

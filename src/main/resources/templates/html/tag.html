@@ -22,10 +22,10 @@
 		<!-- Header -->
 		<header class="w3-container w3-center w3-padding-32">
 			<ul class="navul">
-				<li class="navli"><a href="${APP_PATH }">Home</a></li>
+				<li class="navli"><a href="/">Home</a></li>
 				<li class="navli"><a href="https://github.com">github</a></li>
-				<li class="navli"><a target="_blank" href="${APP_PATH }/contact">Contact me</a></li>
-				<li class="navli"><a target="_blank" href="${APP_PATH }/about">About me</a></li>
+				<li class="navli"><a target="_blank" href="/contact">Contact me</a></li>
+				<li class="navli"><a target="_blank" href="/about">About me</a></li>
 			</ul>
 			<h1>
 				<b>MY BLOG</b>
@@ -49,7 +49,7 @@
 			<div class="w3-col l4">
 				<!-- About Card -->
 				<div class="w3-card w3-margin w3-margin-top">
-					<img src="images/me.jpg" style="width:100%">
+					<img src="/static/images/me.jpg" style="width:100%">
 					<div class="w3-container w3-white">
 						<h4>
 							<b>My Name</b> 于涌超
@@ -66,20 +66,20 @@
 					</div>
 					<ul class="w3-ul w3-hoverable w3-white">
 						<li class="w3-padding-16" id="li1" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="images/workshop.jpg"
+						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="/static/images/workshop.jpg"
 							alt="Image" class="w3-left w3-margin-right" style="width:50px">
 							</li>
 						<li class="w3-padding-16" id="li2" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="images/gondol.jpg"
+						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="/static/images/gondol.jpg"
 							alt="Image" class="w3-left w3-margin-right" style="width:50px">
 							</li>
 						<li class="w3-padding-16" id="li3" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="images/skies.jpg"
+						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="/static/images/skies.jpg"
 							alt="Image" class="w3-left w3-margin-right" style="width:50px">
 							</li>
 						<li class="w3-padding-16 w3-hide-medium w3-hide-small" id="li4" style="word-wrap:break-word;
 						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img
-							src="images/rock.jpg" alt="Image" class="w3-left w3-margin-right"
+							src="/static/images/rock.jpg" alt="Image" class="w3-left w3-margin-right"
 							style="width:50px"></li>
 					</ul>
 				</div>
@@ -112,6 +112,7 @@
 		
 	</footer>
 	<script type="text/javascript">
+        request.setAttribute("APP_PATH", request.getContextPath());
 		$(function() {
 			pages(1);
 			gettags();
@@ -124,7 +125,7 @@
 				type: "GET",
 				url: "${APP_PATH}/tagarticle",
 				data: {
-					id : ${id},
+					id : id,
 					pn : pageid
 				},
 				dataType: "json",
