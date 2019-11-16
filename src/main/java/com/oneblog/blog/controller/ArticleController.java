@@ -38,7 +38,7 @@ public class ArticleController {
      */
     @PostMapping(value = "/newArticle",produces="application/json")
     public ModelAndView newArticle(HttpServletRequest request,
-                                   @RequestParam(value = "editormd-markdown",required = false) String md,
+                                   @RequestParam(value = "editormd-markdown") String md,
                                    @RequestParam(value = "editorhtml",required = false) String content){
         Map<String, Object> map = new HashMap<>();
         ModelAndView view = new ModelAndView();
@@ -121,7 +121,7 @@ public class ArticleController {
      * @return 文章列表的vo
      */
     @GetMapping(value = "/getArticles")
-    public BaseResponseVO getAllArticles(@RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber){
+    public BaseResponseVO getAllArticles(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
         //分页
         PageHelper.startPage(pageNumber,5);
         List<Blog> blogs = articleService.getAllArticles();
@@ -136,13 +136,14 @@ public class ArticleController {
         return BaseResponseVO.success(articleService.getArticleById(blogId));
     }
 
-    //获取某分类下所有文章，老项目在Category的controller中
+    //获取某分类下所有文章并分页，老项目在Category的controller中
     @GetMapping(value = "/getArticlesByTag")
-    public BaseResponseVO getArticlesdByTag(@RequestParam(value = "tagId") Integer tagId){
-        List<Blog> articles = articleService.getArticlesByTag(tagId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("articles", articles);
-        return BaseResponseVO.success(map);
+    public BaseResponseVO getArticlesdByTag(@RequestParam(value = "tagId") Integer tagId,
+                                            @RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
+        PageHelper.startPage(pageNumber, 5);
+        List<Blog> list = articleService.getArticlesByTag(tagId);
+        PageInfo<Blog> pageInfo = new PageInfo<>(list, 5);
+        return BaseResponseVO.success(pageInfo);
     }
 
 

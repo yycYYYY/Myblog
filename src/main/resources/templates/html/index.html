@@ -159,7 +159,7 @@ and is wrapped around the whole page content, except for the footer in this exam
             var btn12 = $("<button></button>").addClass(
                 "w3-button w3-padding-large w3-white w3-border");
             var b12 = $("<b></b>");
-            var a12 = $("<a></a>").attr("href","${APP_PATH}/showarticle?id=" + item.id).append("READ MORE »");
+            var a12 = $("<a></a>").attr("href","/showArticle?id=" + item.id).append("READ MORE »");
             a12.appendTo(b12);
             b12.appendTo(btn12);
             btn12.appendTo(p212);
@@ -252,7 +252,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                     if(index == 0)
                         span = $("<span></span>").addClass("w3-tag w3-black w3-margin-bottom");
 
-                    var a = $("<a></a>").attr("href", "${APP_PATH}/tag?id="+item.id);
+                    var a = $("<a></a>").attr("href", "/tag?id="+item.id);
                     a.append(item.name).appendTo(span);
                     span.appendTo("#tags");
                 });

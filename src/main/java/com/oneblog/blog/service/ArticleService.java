@@ -112,7 +112,9 @@ public class ArticleService {
     public String getMdByArticleId(Integer id){
         Blog blog = blogMapper.selectByPrimaryKey(id);
         logger.info("获取{}号文章的md内容",id);
-        return blog.getMd().isEmpty()?"":blog.getMd();
+        String md = blog.getMd().isEmpty()?"no message":blog.getMd();
+        logger.info(md);
+        return md;
     }
 
 }

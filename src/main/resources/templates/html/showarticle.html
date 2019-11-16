@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
 	<meta charset="utf-8">
@@ -29,14 +29,14 @@
                	<ul class="navul">
 					<li class="navli"><a href="/">Home</a></li>
 					<li class="navli"><a href="https://github.com">github</a></li>
-					<li class="navli"><a target="_blank" href="/contact">Contact me</a></li>
-					<li class="navli"><a target="_blank" href="/about">About me</a></li>
+					<li class="navli"><a target="_self" href="/contact">Contact me</a></li>
+					<li class="navli"><a target="_self" href="/about">About me</a></li>
 				</ul>   
             </header>
         
             <div id="test-editormd-view2">
                 <textarea id="append-test" style="display:none;">
-					${mdString }
+					[[${mdString}]]
 				</textarea>    
 		     </div>
 		       
@@ -63,9 +63,9 @@
 						<br>
 						<div class="row">
 							<div class="col-lg-12 form-group">
-								<button class="btn btn-success" type="submit" onclick="sendcomment(${id})">Send</button>
+								<button class="btn btn-success" type="submit" onclick="sendcomment()">Send</button>
 								  <br><br>
-								  <p style="text-align: center;"><a href="${APP_PATH }">
+								  <p style="text-align: center;"><a href="/">
 									  @2019  京ICP备19016300号</a></p>
 							</div>
 						</div>
@@ -99,26 +99,23 @@
                     taskList        : true,
                     tex             : true,  // 默认不解析
                     flowChart       : true,  // 默认不解析
-                    sequenceDiagram : true,  // 默认不解析
+                    sequenceDiagram : true   // 默认不解析
                 });
-                getComment(${id});
+                getComment([[${id}]]);
             });
-            function showarticlecustomcontanier(id) {
-            	window.location="${APP_PATH}/showarticlecustomcontanier?id=" + id;
-            }
-            function sendcomment(sid) {
+            function sendcomment() {
             	$.ajax({
             		type: "post",
-            		url: "${APP_PATH}/sendcomment",
+            		url: "/sendComment",
             		data: {
-            			id : sid,
-            			name : $("#name").val(),
-            			comment: $("#comments").val()
+            			blogId : [[${id}]],
+            			username : $("#name").val(),
+            			content: $("#comments").val()
             		},
             		dataType: "json",
             		success : function(result) {
-            			alert(result.msg);
-            			getComment(${id});
+            			alert(result.content);
+            			getComment([[${id}]]);
             		} 
             	});
             }
@@ -126,13 +123,13 @@
             function getComment(id) {
             	$.ajax({
             		type: "GET",
-            		url: "${APP_PATH}/getComments",
-            		data: "id="+id,
+            		url: "/getComments",
+            		data: "blogId="+id,
             		dataType: "json",
             		success: function(result) {
             			$("#commentslist").empty();
             			$("<h3></h3>").css("text-align","center").append("评论").appendTo("#commentslist");
-            			var commentlist = result.extend.commentsList;
+            			var commentlist = result.content.comments;
             			$.each(commentlist, function(index , item) {
             				var div = $("<div></div>").addClass("panel panel-success");
             			/* 	 <div class="panel panel-success">

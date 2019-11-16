@@ -5,16 +5,14 @@ import com.oneblog.blog.model.vo.BaseResponseVO;
 import com.oneblog.blog.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class CommentCotroller {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentCotroller.class);
@@ -28,13 +26,13 @@ public class CommentCotroller {
                            @RequestParam(value = "username") String username,
                            @RequestParam(value = "content")String content){
         commentService.addComment(blogId,username,content);
-        return BaseResponseVO.success(null);
+        return BaseResponseVO.success("评论提交成功");
     }
 
     @GetMapping("/deleteComment")
     public BaseResponseVO deleteComment(@RequestParam(value = "commentId")Integer commentId){
         commentService.deleteComment(commentId);
-        return BaseResponseVO.success(null);
+        return BaseResponseVO.success("评论删除成功");
     }
 
     /**
@@ -42,7 +40,7 @@ public class CommentCotroller {
      * @param blogId 文章id
      * @return 单个博客评论
      */
-    @GetMapping("/getComment")
+    @GetMapping("/getComments")
     public BaseResponseVO getCommentById(@RequestParam(value = "blogId")Integer blogId){
 
         Map<String,Object> map = new HashMap<>();
@@ -55,7 +53,6 @@ public class CommentCotroller {
      *
      * @return 获取所有评论
      */
-    @ResponseBody
     @GetMapping("/getAllComments")
     public BaseResponseVO getAllComment(){
         List<Comment> comments = commentService.getAllComment();
@@ -71,18 +68,4 @@ public class CommentCotroller {
         return BaseResponseVO.success(map);
     }
 
-    /**
-     * 这个接口需要迁移
-     * @param request 请求
-     * @return 地址
-     */
-    @GetMapping(value = "/commentManage")
-    public String commentManage(HttpServletRequest request){
-    if (request.getSession().getAttribute("username").equals("")
-            ||request.getSession().getAttribute("username")==null){
-        logger.info("未登录，无法进入评论管理页面/n");
-        return "admin/error";
-    }
-        return "admin";
-    }
 }
