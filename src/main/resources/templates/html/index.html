@@ -26,8 +26,8 @@ and is wrapped around the whole page content, except for the footer in this exam
         <ul class="navul">
             <li class="navli"><a href="/">Home</a></li>
             <li class="navli"><a href="https://github.com/">github</a></li>
-            <li class="navli"><a target="_blank" href="/contact">Contact me</a></li>
-            <li class="navli"><a target="_blank" href="/about">About me</a></li>
+            <li class="navli"><a target="_self" href="/contact">Tags</a></li>
+            <li class="navli"><a target="_self" href="/about">About me</a></li>
         </ul>
         <h1>
             <b>MY BLOG</b>
@@ -56,36 +56,11 @@ and is wrapped around the whole page content, except for the footer in this exam
                     <h4>
                         <b>My Name</b> 小马
                     </h4>
-                    <p> Just me, 一个Java初学者，带着常年每分钟51下跳动的心脏，缓慢的保持着对技术的热爱。
+                    <p>  一个Java初学者，带着常年每分钟51下跳动的心脏，缓慢的保持着对技术的热爱。
                     </p>
                 </div>
             </div>
             <hr>
-
-            <!-- Posts -->
-            <div class="w3-card w3-margin">
-                <div class="w3-container w3-padding">
-                    <h4>Popular Posts</h4>
-                </div>
-                <ul class="w3-ul w3-hoverable w3-white">
-                    <li class="w3-padding-16" id="li1" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="/static/images/workshop.jpg"
-                                                                                           alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                    </li>
-                    <li class="w3-padding-16" id="li2" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="/static/images/gondol.jpg"
-                                                                                           alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                    </li>
-                    <li class="w3-padding-16" id="li3" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img src="/static/images/skies.jpg"
-                                                                                           alt="Image" class="w3-left w3-margin-right" style="width:50px">
-                    </li>
-                    <li class="w3-padding-16 w3-hide-medium w3-hide-small" id="li4" style="word-wrap:break-word;
-						word-break:break-all;text-overflow:ellipsis;overflow:hidden;"><img
-                            src="/static/images/rock.jpg" alt="Image" class="w3-left w3-margin-right"
-                            style="width:50px"></li>
-                </ul>
-            </div>
             <hr>
 
             <!-- Labels / tags -->
@@ -118,7 +93,6 @@ and is wrapped around the whole page content, except for the footer in this exam
     $(function() {
         pages(1);
         gettags();
-        build_post();
     });
 
     // 文章分页功能
@@ -131,7 +105,7 @@ and is wrapped around the whole page content, except for the footer in this exam
             success: function(result) {
                 build_blog(result);
                 // 分页按钮和信息
-                prenext(result.extend.pageInfo);
+                prenext(result.content);
 
             }
         });
@@ -141,21 +115,21 @@ and is wrapped around the whole page content, except for the footer in this exam
     function build_blog(result) {
         // 清空分页
         $("#blog").empty();
-        var articles = result.extend.pageInfo.list;
+        var articles = result.content.list;
         $.each(articles, function(index, item) {
             var div1 = $("<div></div>").addClass("w3-card-4 w3-margin w3-white");
             div1.appendTo("#blog");
-            var img = $("<img></img>").attr("src", "images/woods.jpg").attr("alt", "Nature").css("width", "100%");
+            var img = $("<img></img>").attr("src", "/static/images/woods.jpg").attr("alt", "Nature").css("width", "100%");
             if(index % 5 == 0) {
-                img = $("<img></img>").attr("src", "images/woods.jpg").attr("alt", "Nature").css("width","100%");
+                img = $("<img></img>").attr("src", "/static/images/woods.jpg").attr("alt", "Nature").css("width","100%");
             } else if(index % 5 == 1) {
-                img = $("<img></img>").attr("src", "images/bridge.jpg").attr("alt", "Norway").css("width","100%");
+                img = $("<img></img>").attr("src", "/static/images/ss3.jpg").attr("alt", "Norway").css("width","100%");
             } else if(index % 5 == 2) {
-                img = $("<img></img>").attr("src", "images/ss3.jpg").attr("alt", "star8").css("width","100%");
+                img = $("<img></img>").attr("src", "/static/images/ss5.jpg").attr("alt", "star8").css("width","100%");
             } else if(index % 5 == 3) {
-                img = $("<img></img>").attr("src", "images/ss5.jpg").attr("alt", "starwars").css("width","100%");
+                img = $("<img></img>").attr("src", "/static/images/bridge.jpg").attr("alt", "starwars").css("width","100%");
             } else if(index % 5 == 4) {
-                img = $("<img></img>").attr("src", "images/starwarsweek.jpg").attr("alt", "starwarsweek").css("width","100%");
+                img = $("<img></img>").attr("src", "/static/images/woods.jpg").attr("alt", "starwarsweek").css("width","100%");
             }
             img.appendTo(div1);
 
@@ -270,7 +244,7 @@ and is wrapped around the whole page content, except for the footer in this exam
             dataType: "json",
             success: function(result) {
                 $("#tags").empty();
-                var tags = result.extend.tags;
+                var tags = result.content;
                 /* <span class="w3-tag w3-black w3-margin-bottom">Travel</span>  */
                 $.each(tags, function(index, item) {
                     var span;
@@ -286,46 +260,6 @@ and is wrapped around the whole page content, except for the footer in this exam
         });
     }
 
-    // 构建 popular 文章
-    function build_post() {
-        $.ajax({
-            type: "GET",
-            url: "/postArticle",
-            dataType: "json",
-            success: function(result) {
-                var list = result.extend.postList;
-                $.each(list, function(index, item){
-                    var span1 = $("<span></span>").addClass("w3-large");
-                    var span2 = $("<span></span>").addClass("w3-large");
-                    if(index == 0) {
-                        var a = $("<a></a>").attr("href","${APP_PATH}/showarticle?id="+item.id);
-                        a.append(item.title).appendTo(span1);
-                        span1.appendTo("#li1");
-                    }
-
-                    if(index == 1) {
-                        var a1 = $("<a></a>").attr("href","${APP_PATH}/showarticle?id="+item.id);
-                        a1.append(item.title).appendTo(span1);
-                        span1.appendTo("#li2");
-                    }
-
-                    if(index == 2) {
-                        var a2 = $("<a></a>").attr("href","${APP_PATH}/showarticle?id="+item.id);
-                        a2.append(item.title).appendTo(span1);
-                        span1.appendTo("#li3");
-                    }
-
-
-                    if(index == 3) {
-                        var a3 = $("<a></a>").attr("href","${APP_PATH}/showarticle?id="+item.id);
-                        a3.append(item.title).appendTo(span1);
-                        span1.appendTo("#li4");
-                    }
-                });
-            }
-        });
-
-    }
 
     // 解析时间戳函数 解析后格式为 xxxx-x(小于10，这个为0)x-xx
     function parseDateNormal(dateStr) {

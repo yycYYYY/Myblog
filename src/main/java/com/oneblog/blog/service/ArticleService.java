@@ -80,6 +80,7 @@ public class ArticleService {
      * 根据id获取文章不带分类信息
      */
     public Blog getArticleById(Integer blogId){
+        logger.info("获取{}号文章",blogId);
         return blogMapper.selectByPrimaryKey(blogId);
     }
 
@@ -88,6 +89,7 @@ public class ArticleService {
      * 获取所有的文章带分类信息
      */
     public List<Blog> getAll() {
+        logger.info("获取所有文章");
         return blogMapper.selectByExampleWithCategory(null);
     }
 
@@ -96,16 +98,20 @@ public class ArticleService {
      *
      */
     public Blog selectByPrimaryKeyWithCategory(Integer id) {
+        logger.info("获取{}文章with tag",id);
         return blogMapper.selectByPrimaryKeyWithCategory(id);
     }
 
     public List<Blog> getArticlesByTag(Integer tagId){
         BlogExample example = new BlogExample();
         example.createCriteria().andCategoryidEqualTo(tagId);
+        logger.info("根据{}号tag获取文章",tagId);
         return blogMapper.selectByExample(example);
     }
+
     public String getMdByArticleId(Integer id){
         Blog blog = blogMapper.selectByPrimaryKey(id);
+        logger.info("获取{}号文章的md内容",id);
         return blog.getMd().isEmpty()?"":blog.getMd();
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class ArticleController {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
@@ -114,7 +115,7 @@ public class ArticleController {
         return view;
     }
 
-    /**有问题！！！！！！！！！！！！
+    /**
      * 分页，并返回文章列表
      * @param pageNumber 页数
      * @return 文章列表的vo

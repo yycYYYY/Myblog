@@ -261,7 +261,7 @@
 
 
   <select id="selectAll" resultType="com.oneblog.blog.entity.Blog">
-    select * from blog;
+    select * from blog
   </select>
 
   <!-- 查询博客文章的同时带分类信息 -->
