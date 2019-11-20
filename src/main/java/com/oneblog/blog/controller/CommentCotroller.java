@@ -45,6 +45,7 @@ public class CommentCotroller {
 
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.getCommentByBlog(blogId));
+        map.put("count",commentService.getCommentByBlog(blogId).size());
         logger.info("获取单个博客评论");
         return BaseResponseVO.success(map);
     }

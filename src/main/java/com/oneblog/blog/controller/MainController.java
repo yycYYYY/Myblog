@@ -27,24 +27,24 @@ public class MainController {
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String showInfoDemo(Model model){
         return "html/index";
     }
 
-    @RequestMapping("/about")
+    @GetMapping("/about")
     public String showAbout(){
         return "html/about";
     }
 
-    @RequestMapping("/contact")
+    @GetMapping("/contact")
     public String showContact(){
         return "html/contact";
     }
 
     // 后台新建博客文章,判断是否登陆，我用  ajax 请求无法跳转页面，
     // 使用了window.location='${APP_PATH }/islogin'; 请求跳转
-    @RequestMapping(value="/islogin")
+    @GetMapping(value="/islogin")
     public String newarticle(HttpServletRequest request) {
         if(request.getSession().getAttribute("username") != null) {
             System.out.println("username = " + request.getSession().getAttribute("username"));
@@ -56,7 +56,7 @@ public class MainController {
 
 
     // 新建文章
-    @RequestMapping(value = "/newarticle")
+    @GetMapping(value = "/newarticle")
     public String editarticle(HttpServletRequest request)
     {
         //得到 session 的值，判断是否已经登陆
@@ -80,7 +80,7 @@ public class MainController {
 
 
     // 编辑文章
-    @RequestMapping("/edit")
+    @GetMapping("/edit")
     public String edit(@RequestParam(value="id", defaultValue="1") Integer id,
                        HttpServletRequest request, Model model) {
         if(request.getSession().getAttribute("username")  != null) {
@@ -91,12 +91,12 @@ public class MainController {
     }
 
     // 没有登陆的时候，就不能删除文章
-    @RequestMapping("/deleteNoLogin")
+    @GetMapping("/deleteNoLogin")
     public String deleteNoLogin() {
         return "html/admin/error";
     }
 
-    @RequestMapping(value ="/articleAdmin")
+    @GetMapping(value ="/articleAdmin")
     public String articleAdmin(HttpServletRequest request, HttpServletResponse response){
         String username = null;
         if(request.getSession().getAttribute("username") != null) {
@@ -110,7 +110,7 @@ public class MainController {
     }
     
     // 分类的后台管理
-    @RequestMapping(value="/tagAdmin")
+    @GetMapping(value="/tagAdmin")
     public String tagadmin(HttpServletRequest request, HttpServletResponse response) {
         String username = null;
         if(request.getSession().getAttribute("username") != null) {
@@ -124,7 +124,7 @@ public class MainController {
     }
 
     // 评论后台管理
-    @RequestMapping("/commentback")
+    @GetMapping("/commentback")
     public String commentback(HttpServletRequest request,HttpServletResponse response) {
         //得到 session 的值，判断是否已经登陆
         if(request.getSession().getAttribute("username") != null) {
