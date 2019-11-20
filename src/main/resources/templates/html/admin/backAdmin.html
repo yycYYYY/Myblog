@@ -54,7 +54,7 @@
 		  <div class="modal-dialog">
 		
 		    <!-- Modal content-->
-		    <div class="modal-content">PP_PATH", request.getContextPath());
+		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        <h4 class="modal-title">删除提醒!</h4>
@@ -79,7 +79,7 @@
 		// 去哪一页函数
 		function to_page(pn) {
 			$.ajax({
-				url : "${APP_PATH}/articles",
+				url : "/getArticles",
 				data : "pn=" + pn,
 				type : "GET",
 				success : function(result) {
@@ -97,7 +97,7 @@
 			// 清空内容
 			$("#articlelist").empty();
 
-			var articles = result.extend.pageInfo.list;
+			var articles = result.content.list;
 			// 遍历文章列表，动态添加列表内容
 			$.each(articles, function(index, item) {
 				/*    <li class="list-group-item">First item
@@ -124,7 +124,7 @@
 				var delBtn = $("<button></button>").addClass("btn btn-danger").append("删除").attr("data-toggle", "modal")
 						.attr("data-target", "#myModal").appendTo(div);
 					delBtn.bind("click", function() {
-						del(item.id, result.extend.pageInfo.pageNum);
+						del(item.id, result.content.pageNum);
 					});
 				div.appendTo(li);
 				li.appendTo("#articlelist");
@@ -137,11 +137,11 @@
 			$("#page_info_area").empty();
 			//alert("hello");
 			$("#page_info_area").append(
-					"当前 " + result.extend.pageInfo.pageNum + " 页，总 "
-							+ result.extend.pageInfo.pages + " 页，总 "
-							+ result.extend.pageInfo.total + " 篇文章");
-			totalRecord = result.extend.pageInfo.total;
-			currentPage = result.extend.pageInfo.pageNum;
+					"当前 " + result.content.pageNum + " 页，总 "
+							+ result.content.pages + " 页，总 "
+							+ result.content.total + " 篇文章");
+			totalRecord = result.content.total;
+			currentPage = result.content.pageNum;
 		}
 
 		//显示导航条
@@ -154,7 +154,7 @@
 					$("<a></a>").append("首页").attr("href", "#"));
 			var prePageLi = $("<li></li>").append(
 					$("<a></a>").append("&laquo;"));
-			if (result.extend.pageInfo.hasPreviousPage == false) {
+			if (result.content.hasPreviousPage == false) {
 				firstPageLi.addClass("disabled");
 				prePageLi.addClass("disabled");
 			} else {
@@ -164,7 +164,7 @@
 				});
 
 				prePageLi.click(function() {
-					to_page(result.extend.pageInfo.pageNum - 1);
+					to_page(result.content.pageNum - 1);
 				});
 			}
 
@@ -173,26 +173,26 @@
 			var lastPageLi = $("<li></li>").append(
 					$("<a></a>").append("末页").attr("href", "#"));
 
-			if (result.extend.pageInfo.hasNextPage == false) {
+			if (result.content.hasNextPage == false) {
 				nextPageLi.addClass("disabled");
 				lastPageLi.addClass("disabled");
 			} else {
 				//添加末页、下一页的点击
 				nextPageLi.click(function() {
-					to_page(result.extend.pageInfo.pageNum + 1);
+					to_page(result.content.pageNum + 1);
 				});
 
 				lastPageLi.click(function() {
-					to_page(result.extend.pageInfo.pages);
+					to_page(result.content.pages);
 				});
 			}
 
 			ul.append(firstPageLi).append(prePageLi);
 
-			$.each(result.extend.pageInfo.navigatepageNums, function(index,
+			$.each(result.content.navigatepageNums, function(index,
 					item) {
 				var numLi = $("<li></li>").append($("<a></a>").append(item));
-				if (result.extend.pageInfo.pageNum == item) {
+				if (result.content.pageNum == item) {
 					numLi.addClass("active");
 				}
 
@@ -210,21 +210,20 @@
 		
 		// 新建博客的控制器映射
 		function newblog() {
-			window.location='${APP_PATH }/islogin';	
+			window.location='/islogin';
 		}
 		
 		// 编辑博客发出的请求
 		function edit(id) {
-			window.location='${APP_PATH }/edit?id=' + id;
+			window.location='/edit?id=' + id;
         }
-        // 删除函数
+        // 删除博客函数
 		function del(id, pageNum) {
-			alert(id);
 			$("#delBtn").bind("click", function() {
 				$.ajax({
 					type: "GET",
-					url: "${APP_PATH}/delete",
-					data: "id=" + id,
+					url: "/deleteArticle",
+					data: "blogId=" + id,
 					success: function() {
 						alert("删除成功！");
 						// 回到当前页

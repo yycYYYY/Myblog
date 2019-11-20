@@ -47,8 +47,7 @@ public class MainController {
         return "html/tagpage";
     }
 
-    // 后台新建博客文章,判断是否登陆，我用  ajax 请求无法跳转页面，
-    // 使用了window.location='/islogin'; 请求跳转
+    //新建文章是判断是否登录
     @GetMapping(value="/islogin")
     public String newarticle(HttpServletRequest request) {
         if(request.getSession().getAttribute("username") != null) {
