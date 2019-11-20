@@ -26,7 +26,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         <ul class="navul">
             <li class="navli"><a href="/">Home</a></li>
             <li class="navli"><a href="https://github.com/">github</a></li>
-            <li class="navli"><a target="_self" href="/contact">Tags</a></li>
+            <li class="navli"><a target="_self" href="/tags">Tags</a></li>
             <li class="navli"><a target="_self" href="/about">About me</a></li>
         </ul>
         <h1>
@@ -112,7 +112,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     }
 
     // 博客函数
-    function build_blog(result,count) {
+    function build_blog(result) {
         // 清空分页
         $("#blog").empty();
         var articles = result.content.list;
@@ -171,7 +171,7 @@ and is wrapped around the whole page content, except for the footer in this exam
             var p22 = $("<p></p>");
             var span22 = $("<span></span>").addClass("w3-padding-large w3-right");
             var b22 = $("<b></b>").append("Comments &nbsp;");
-            var span222 = $("<span></span>").addClass("w3-tag").append(0);
+            var span222 = $("<span id='comments'></span>").addClass("w3-tag").append(0);
             b22.appendTo(span22);
             span222.appendTo(span22);
             span22.appendTo(p22);
@@ -252,7 +252,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                     if(index == 0)
                         span = $("<span></span>").addClass("w3-tag w3-black w3-margin-bottom");
 
-                    var a = $("<a></a>").attr("href", "/tag?id="+item.id);
+                    var a = $("<a></a>").attr("href", "/tagPage?blogId="+item.id);
                     a.append(item.name).appendTo(span);
                     span.appendTo("#tags");
                 });

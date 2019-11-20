@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController {
 
     @Resource
-    ArticleService articleService;
+    private ArticleService articleService;
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -37,13 +36,19 @@ public class MainController {
         return "html/about";
     }
 
-    @GetMapping("/contact")
+    @GetMapping("/tags")
     public String showContact(){
-        return "html/contact";
+        return "html/tags";
+    }
+
+    @GetMapping("/tagPage")
+    public String tagArticlePage(@RequestParam(value = "blogId")Integer blogId,Model model){
+        model.addAttribute("blogId", blogId);
+        return "html/tagpage";
     }
 
     // 后台新建博客文章,判断是否登陆，我用  ajax 请求无法跳转页面，
-    // 使用了window.location='${APP_PATH }/islogin'; 请求跳转
+    // 使用了window.location='/islogin'; 请求跳转
     @GetMapping(value="/islogin")
     public String newarticle(HttpServletRequest request) {
         if(request.getSession().getAttribute("username") != null) {

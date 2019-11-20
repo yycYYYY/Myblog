@@ -8,6 +8,7 @@ import com.oneblog.blog.service.ArticleService;
 import com.oneblog.blog.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -138,7 +139,7 @@ public class ArticleController {
     //获取某分类下所有文章并分页，老项目在Category的controller中
     @GetMapping(value = "/getArticlesByTag")
     public BaseResponseVO getArticlesdByTag(@RequestParam(value = "tagId") Integer tagId,
-                                            @RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
+                                            @RequestParam(value = "pn",defaultValue = "1",required = false) Integer pageNumber){
         PageHelper.startPage(pageNumber, 5);
         List<Blog> list = articleService.getArticlesByTag(tagId);
         PageInfo<Blog> pageInfo = new PageInfo<>(list, 5);

@@ -13,9 +13,6 @@ public class Category {
         this.level = level;
     }
 
-    public Category() {
-    }
-
     public Integer getId() {
         return id;
     }

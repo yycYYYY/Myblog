@@ -24,7 +24,7 @@
 			<ul class="navul">
 				<li class="navli"><a href="/">Home</a></li>
 				<li class="navli"><a href="https://github.com">github</a></li>
-				<li class="navli"><a target="_self" href="/contact">Tags</a></li>
+				<li class="navli"><a target="_self" href="/tags">Tags</a></li>
 				<li class="navli"><a target="_self" href="/about">About me</a></li>
 			</ul>
 			<h1>
@@ -123,14 +123,14 @@
 				type: "GET",
 				url: "/getArticlesByTag",
 				data: {
-					id : id,
+					tagId : [[${blogId}]],
 					pn : pageid
 				},
 				dataType: "json",
 				success: function(result) {
 					build_blog(result);
 					// 分页按钮和信息
-					prenext(result.content.pageInfo);
+					prenext(result.content);
 				
 				}
 			});
@@ -140,22 +140,22 @@
 		function build_blog(result) {
 				// 清空分页
 					$("#blog").empty();
-					var articles = result.content.pageInfo.list;
+					var articles = result.content.list;
 					$.each(articles, function(index, item) {
 						var div1 = $("<div></div>").addClass("w3-card-4 w3-margin w3-white");
 						div1.appendTo("#blog");
-                        var img = $("<img></img>").attr("src", "images/woods.jpg").attr("alt", "Nature").css("width", "100%");
+                        var img = $("<img></img>").attr("src", "/static/images/woods.jpg").attr("alt", "Nature").css("width", "100%");
                         if(index % 5 == 0) {
-							img = $("<img></img>").attr("src", "images/woods.jpg").attr("alt", "Nature").css("width","100%");
-						} else if(index % 5 == 1) {
-							img = $("<img></img>").attr("src", "images/bridge.jpg").attr("alt", "Norway").css("width","100%");
-						} else if(index % 5 == 2) {
-							img = $("<img></img>").attr("src", "images/ss3.jpg").attr("alt", "star8").css("width","100%");
-						} else if(index % 5 == 3) {
-							img = $("<img></img>").attr("src", "images/ss5.jpg").attr("alt", "starwars").css("width","100%");
-						} else if(index % 5 == 4) {
-							img = $("<img></img>").attr("src", "images/starwarsweek.jpg").attr("alt", "starwarsweek").css("width","100%");
-						}
+                            img = $("<img></img>").attr("src", "/static/images/woods.jpg").attr("alt", "Nature").css("width","100%");
+                        } else if(index % 5 == 1) {
+                            img = $("<img></img>").attr("src", "/static/images/ss3.jpg").attr("alt", "Norway").css("width","100%");
+                        } else if(index % 5 == 2) {
+                            img = $("<img></img>").attr("src", "/static/images/ss5.jpg").attr("alt", "star8").css("width","100%");
+                        } else if(index % 5 == 3) {
+                            img = $("<img></img>").attr("src", "/static/images/bridge.jpg").attr("alt", "starwars").css("width","100%");
+                        } else if(index % 5 == 4) {
+                            img = $("<img></img>").attr("src", "/static/images/woods.jpg").attr("alt", "starwarsweek").css("width","100%");
+                        }
 						img.appendTo(div1);
 						
 						// 第一个 div
@@ -265,7 +265,7 @@
 		function gettags() {
 			$.ajax({
 				type: "GET",
-				url: "/getTags",
+				url: "/getAllTags",
 				dataType: "json",
 				success: function(result) {
 					$("#tags").empty();
@@ -277,7 +277,7 @@
 						if(index == 0)
 						 	span = $("<span></span>").addClass("w3-tag w3-black w3-margin-bottom");
 				
-						var a = $("<a></a>").attr("href", "/tag?id="+item.id);
+						var a = $("<a></a>").attr("href", "/tagPage?blogId="+item.id);
 						a.append(item.name).appendTo(span);
 						span.appendTo("#tags");
 					});
